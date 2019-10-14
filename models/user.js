@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        msg: 'Please provide your last name'
+        notNull: {
+          msg: 'Please provide your last name'
+        }
       }
     },
     email: {
@@ -63,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
 
   user.associate = function(models) {
     // associations can be defined here
-    models.user.hasMany(models.post)
+    models.user.hasMany(models.post, {foreignKey: "author"})
   };
 
   user.prototype.toJSON = function(){
